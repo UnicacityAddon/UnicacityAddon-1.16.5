@@ -1,6 +1,11 @@
 {
-  "name": "Example Addon",
+  "name": "Unicacity",
   "uuid": "%uuid%",
-  "mainClass": "com.example.addon.ExampleAddon",
-  "transformerClass": "com.example.addon.ExampleAddonTransformer"
+  "mainClass": "com.rettichlp.UnicacityAddon.UnicacityAddon",
+  "transformerClass": "com.rettichlp.UnicacityAddon.UnicacityAddonTransformer",
+  "description": "This addon is a modification for UnicaCity providing specialized and nice-to-have features and utilities for everyday gameplay.",
+  "version": 1,
+  "author": "RettichLP",
+  "category": 3,
+  "icon": "https://i.imgur.com/kvc4Tpd.png"
 }

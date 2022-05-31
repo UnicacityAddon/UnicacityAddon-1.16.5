@@ -1,13 +1,13 @@
 {
   "required": true,
-  "package": "com.example.addon.mixin",
+  "package": "com.rettichlp.UnicacityAddon.mixin",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "example.refmap.json",
+  "refmap": "unicacityAddon.refmap.json",
   "verbose": false,
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
-    "ExampleMixin"
+    "UnicacityAddonMixin"
   ]
 }
