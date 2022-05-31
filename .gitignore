@@ -44,6 +44,7 @@ hs_err_pid*
 .idea/**/.name
 .idea/**/vcs.xml
 .idea/**/compiler.xml
+.idea/**/runClient.xml
 run/**
 
 # Sensitive or high-churn files
@@ -54,6 +55,9 @@ run/**
 .idea/**/dynamic.xml
 .idea/**/dbnavigator.xml
 .idea/kotlinScripting.xml
+
+# Git toolbox
+.idea/git_toolbox_prj.xml
 
 # Gradle
 .idea/**/gradle.xml
