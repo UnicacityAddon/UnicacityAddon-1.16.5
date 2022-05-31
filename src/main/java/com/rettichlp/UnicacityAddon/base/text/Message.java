@@ -39,14 +39,20 @@ public class Message {
                     .of("[").color(ColorCode.DARK_GRAY).advance()
                     .of("Gemüsekiste").color(ColorCode.DARK_GREEN).advance()
                     .of("]").color(ColorCode.DARK_GRAY).advance()
-                    .space()
                     .create());
         }
 
         public Builder info() {
             return add(Message.getBuilder()
                     .of("  Info:").color(ColorCode.AQUA).advance()
-                    .space()
+                    .create());
+        }
+
+        public Builder error() {
+            return add(Message.getBuilder()
+                    .of("[").color(ColorCode.DARK_GRAY).advance()
+                    .of("Fehler").color(ColorCode.RED).advance()
+                    .of("]").color(ColorCode.DARK_GRAY).advance()
                     .create());
         }
 

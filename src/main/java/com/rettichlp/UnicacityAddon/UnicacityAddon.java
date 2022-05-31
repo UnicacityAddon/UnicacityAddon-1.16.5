@@ -1,6 +1,8 @@
 package com.rettichlp.UnicacityAddon;
 
 import com.google.gson.JsonObject;
+import com.rettichlp.UnicacityAddon.base.abstraction.AbstractionLayer;
+import com.rettichlp.UnicacityAddon.base.command.CommandHandler;
 import com.rettichlp.UnicacityAddon.base.text.ColorCode;
 import com.rettichlp.UnicacityAddon.base.text.Message;
 import net.labymod.api.LabyModAddon;
@@ -9,23 +11,26 @@ import net.labymod.settings.elements.HeaderElement;
 import net.labymod.settings.elements.SettingsElement;
 import net.minecraft.client.Minecraft;
 
-import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Set;
+import java.util.logging.Logger;
 
+/**
+ * @author RettichLP
+ */
 public class UnicacityAddon extends LabyModAddon {
 
     public static final String VERSION = "1.0.0";
+    public static Logger LOGGER = Logger.getLogger("UnicacityAddon");
     public static JsonObject CONFIG;
     public static final LabyMod LABYMOD = LabyMod.getInstance();
     public static final Minecraft MINECRAFT = Minecraft.getInstance();
-    public static Set<Method> COMMANDS;
 
     @Override
     public void onEnable() {
-        // AbstractionLayer.getLabymod().getEventService().registerListener(new TestEvent());
-        // AbstractionLayer.getLabymod().getEventService().registerListener(new TestCommand());
-        // COMMANDS = CommandHandler.getCommandMethods();
+        // CommandHandler
+        AbstractionLayer.getLabymod().getEventService().registerListener(new CommandHandler());
+
+        // Events
     }
 
     @Override public void loadConfig() {
