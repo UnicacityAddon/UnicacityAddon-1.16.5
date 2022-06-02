@@ -3,13 +3,18 @@ package com.rettichlp.UnicacityAddon;
 import com.google.gson.JsonObject;
 import com.rettichlp.UnicacityAddon.base.abstraction.AbstractionLayer;
 import com.rettichlp.UnicacityAddon.base.command.CommandHandler;
+import com.rettichlp.UnicacityAddon.base.config.ConfigElements;
 import com.rettichlp.UnicacityAddon.base.faction.FactionHandler;
 import com.rettichlp.UnicacityAddon.base.text.ColorCode;
 import com.rettichlp.UnicacityAddon.base.text.Message;
+import com.rettichlp.UnicacityAddon.events.NameTagEventHandler;
 import net.labymod.api.LabyModAddon;
 import net.labymod.main.LabyMod;
+import net.labymod.settings.elements.BooleanElement;
+import net.labymod.settings.elements.ControlElement;
 import net.labymod.settings.elements.HeaderElement;
 import net.labymod.settings.elements.SettingsElement;
+import net.labymod.utils.Material;
 import net.minecraft.client.Minecraft;
 
 import java.util.List;
@@ -32,6 +37,7 @@ public class UnicacityAddon extends LabyModAddon {
         AbstractionLayer.getLabymod().getEventService().registerListener(new CommandHandler());
 
         // Events
+        AbstractionLayer.getLabymod().getEventService().registerListener(new NameTagEventHandler());
     }
 
     @Override
@@ -59,68 +65,26 @@ public class UnicacityAddon extends LabyModAddon {
                 .of("by RettichLP").color(ColorCode.GOLD).advance()
                 .create()));
 
-        /*
-        // jobs
-        list.add(new HeaderElement(Message.getBuilder()
-                .of("Jobs").color(ColorCode.WHITE).bold().advance()
-                .create()));
+        BooleanElement nameTagForFactionSuffix = new BooleanElement("Fraktionssuffix", this, new ControlElement.IconData(Material.NAME_TAG), "NAMETAG_FACTIONSUFFIX",
+                ConfigElements.NAMETAG_FACTIONSUFFIX);
+        list.add(nameTagForFactionSuffix);
 
-        list.add(new BooleanElement("Auto /dropammo",
-                this,
-                new ControlElement.IconData(Material.ARROW),
-                "command.jobs.dropammo",
-                AbstractionLayer.getConfig().getCommandJobsDropammo()));
+        BooleanElement nameTagForFaction = new BooleanElement("Fraktionsmarkierung", this, new ControlElement.IconData(Material.BLUE_DYE), "NAMETAG_FACTION",
+                ConfigElements.NAMETAG_FACTION);
+        list.add(nameTagForFaction);
 
-        list.add(new BooleanElement("Automatisch /droptransport",
-                this,
-                new ControlElement.IconData(Material.CHEST),
-                "command.jobs.droptransport",
-                AbstractionLayer.getConfig().getCommandJobsDroptransport()));
+        BooleanElement nameTagForAlliance = new BooleanElement("Bündnismarkierung", this, new ControlElement.IconData(Material.PINK_DYE), "NAMETAG_ALLIANCE",
+                ConfigElements.NAMETAG_ALLIANCE);
+        nameTagForAlliance.setSubSettings(ConfigElements.getNameTagForAlliance());
+        list.add(nameTagForAlliance);
 
-        list.add(new BooleanElement("Auto /dropwaste",
-                this,
-                new ControlElement.IconData(Material.CAULDRON),
-                "command.jobs.dropwaste",
-                AbstractionLayer.getConfig().getCommandJobsDropwaste()));
+        BooleanElement nameTagForStreetwar = new BooleanElement("Streetwarmarkierung", this, new ControlElement.IconData(Material.IRON_SWORD), "NAMETAG_STREETWAR",
+                ConfigElements.NAMETAG_STREETWAR);
+        nameTagForStreetwar.setSubSettings(ConfigElements.getNameTagForStreetwar());
+        list.add(nameTagForStreetwar);
 
-        // factions
-        list.add(new HeaderElement(Message.getBuilder()
-                .of("Fraktionen").color(ColorCode.WHITE).bold().advance()
-                .create()));
-
-        list.add(new BooleanElement("Toggle1",
-                this,
-                new ControlElement.IconData(Material.CAULDRON),
-                "config.factions.toggle1",
-                UnicacityAddonConfig.factions_toggle1));
-
-        // any
-        list.add(new HeaderElement(Message.getBuilder()
-                .of("").color(ColorCode.WHITE).bold().advance()
-                .create()));
-
-        list.add(new BooleanElement("Tankwarnung",
-                this,
-                new ControlElement.IconData(Material.BUCKET),
-                "config.car.tankWarning",
-                AbstractionLayer.getConfig().getEventCarTankWarning()));
-
-
-        BooleanElement jobs = new BooleanElement("Jobs",
-                this,
-                new ControlElement.IconData(Material.FISHING_ROD),
-                "config.job",
-                true);
-        jobs.setSubSettings(jobSettings);
-        list.add(jobs);
-
-        BooleanElement faction = new BooleanElement("Fraktion",
-                this,
-                new ControlElement.IconData(Material.FISHING_ROD),
-                "config.faction",
-                true);
-        faction.setSubSettings(factionSettings);
-        list.add(faction);
-        */
+        BooleanElement nameTagForHouseBan = new BooleanElement("Hausverbot", this, new ControlElement.IconData(Material.SPAWNER), "NAMETAG_HOUSEBAN",
+                ConfigElements.NAMETAG_HOUSEBAN);
+        list.add(nameTagForHouseBan);
     }
 }
