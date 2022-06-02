@@ -3,6 +3,7 @@ package com.rettichlp.UnicacityAddon;
 import com.google.gson.JsonObject;
 import com.rettichlp.UnicacityAddon.base.abstraction.AbstractionLayer;
 import com.rettichlp.UnicacityAddon.base.command.CommandHandler;
+import com.rettichlp.UnicacityAddon.base.faction.FactionHandler;
 import com.rettichlp.UnicacityAddon.base.text.ColorCode;
 import com.rettichlp.UnicacityAddon.base.text.Message;
 import net.labymod.api.LabyModAddon;
@@ -33,8 +34,11 @@ public class UnicacityAddon extends LabyModAddon {
         // Events
     }
 
-    @Override public void loadConfig() {
+    @Override
+    public void loadConfig() {
         CONFIG = getConfig();
+        FactionHandler.getPlayerFactionMap();
+        FactionHandler.getPlayerRankMap();
     }
 
     @Override
