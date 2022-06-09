@@ -8,6 +8,7 @@ import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
@@ -32,6 +33,8 @@ public interface UPlayer {
     Scoreboard getScoreboard();
 
     World getWorld();
+
+    BlockPos getPosition();
 
     void sendMessage(ITextComponent message);
 

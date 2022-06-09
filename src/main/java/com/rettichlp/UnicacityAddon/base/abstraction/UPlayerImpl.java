@@ -10,6 +10,7 @@ import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
@@ -54,6 +55,11 @@ public class UPlayerImpl implements UPlayer {
     @Override
     public World getWorld() {
         return getPlayer().getEntityWorld();
+    }
+
+    @Override
+    public BlockPos getPosition() {
+        return getPlayer().getPosition();
     }
 
     @Override
