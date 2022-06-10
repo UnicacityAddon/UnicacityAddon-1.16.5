@@ -48,7 +48,9 @@ public class FactionHandler {
             List<String> rankList = ListUtils.getAllMatchesFromString(PatternHandler.RANK_PATTERN, faction.getWebsiteSource());
             nameList.forEach(name -> playerRankMap.put(
                     name.replace("<h4 class=\"h5 g-mb-5\"><strong>", ""),
-                    (int) rankList.get(nameList.indexOf(name)).charAt(0)));
+                    Integer.parseInt(String.valueOf(rankList.get(nameList.indexOf(name))
+                            .replace("<strong>Rang ", "")
+                            .charAt(0)))));
         }
 
         return playerRankMap;
