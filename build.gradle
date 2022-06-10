@@ -91,6 +91,7 @@ dependencies {
     compile("org.spongepowered:mixin:0.8.2") { transitive = false }
     compile("net.minecraft:launchwrapper:1.12") { transitive = false }
 
+    implementation 'org.jetbrains:annotations:23.0.0'
     // implementation 'org.reflections:reflections:0.10.2'
 }
 
@@ -111,4 +112,3 @@ task downloadAPI(type: Download) {
     src "https://dl.labymod.net/latest/api/files/lm_api_mc1.16.5.jar"
     dest 'libs/'
 }
-
