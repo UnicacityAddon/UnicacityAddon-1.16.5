@@ -5,6 +5,7 @@ import com.rettichlp.UnicacityAddon.base.abstraction.AbstractionLayer;
 import com.rettichlp.UnicacityAddon.base.command.CommandHandler;
 import com.rettichlp.UnicacityAddon.base.config.ConfigSettings;
 import com.rettichlp.UnicacityAddon.base.faction.FactionHandler;
+import com.rettichlp.UnicacityAddon.events.ATMInfoEventHandler;
 import com.rettichlp.UnicacityAddon.events.NameTagEventHandler;
 import net.labymod.api.LabyModAddon;
 import net.labymod.main.LabyMod;
@@ -30,6 +31,7 @@ public class UnicacityAddon extends LabyModAddon {
         AbstractionLayer.getLabymod().getEventService().registerListener(new CommandHandler());
 
         // Events
+        AbstractionLayer.getLabymod().getEventService().registerListener(new ATMInfoEventHandler());
         AbstractionLayer.getLabymod().getEventService().registerListener(new NameTagEventHandler());
     }
 
