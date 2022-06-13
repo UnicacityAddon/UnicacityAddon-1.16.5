@@ -10,6 +10,7 @@ import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
@@ -57,6 +58,11 @@ public class UPlayerImpl implements UPlayer {
     }
 
     @Override
+    public BlockPos getPosition() {
+        return getPlayer().getPosition();
+    }
+
+    @Override
     public void sendMessage(ITextComponent message) {
         getPlayer().sendMessage(message, getUUID());
     }
@@ -64,6 +70,11 @@ public class UPlayerImpl implements UPlayer {
     @Override
     public void sendMessageAsString(String message) {
         sendMessage(ITextComponent.getTextComponentOrEmpty(message));
+    }
+
+    @Override
+    public void sendChatMessage(String message) {
+        getPlayer().sendChatMessage(message);
     }
 
     @Override
