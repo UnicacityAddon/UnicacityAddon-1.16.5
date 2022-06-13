@@ -1,6 +1,5 @@
 package com.rettichlp.UnicacityAddon.base.abstraction;
 
-import com.rettichlp.UnicacityAddon.base.exceptions.ConfigClassCannotBeInstantiated;
 import com.rettichlp.UnicacityAddon.base.exceptions.LabymodClassCannotBeInstantiated;
 import com.rettichlp.UnicacityAddon.base.exceptions.UPlayerClassCannotBeInstantiated;
 
@@ -12,17 +11,8 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class AbstractionLayer {
 
-    private static final Class<? extends Config> configClass = ConfigImpl.class;
     private static final Class<? extends Labymod> labymodClass = LabymodImpl.class;
     private static final Class<? extends UPlayer> uplayerClass = UPlayerImpl.class;
-
-    public static Config getConfig() {
-        try {
-            return configClass.getDeclaredConstructor().newInstance();
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            throw new ConfigClassCannotBeInstantiated("Class " + configClass + " cannot be instantiated.", e);
-        }
-    }
 
     public static Labymod getLabymod() {
         try {
