@@ -1,7 +1,6 @@
 package com.rettichlp.UnicacityAddon.base.text;
 
 import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.StringTextComponent;
 
 import java.util.ArrayList;

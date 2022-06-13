@@ -1,6 +1,8 @@
 package com.rettichlp.UnicacityAddon.base.abstraction;
 
 import com.rettichlp.UnicacityAddon.UnicacityAddon;
+import com.rettichlp.UnicacityAddon.base.faction.Faction;
+import com.rettichlp.UnicacityAddon.base.faction.FactionHandler;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.network.play.ClientPlayNetHandler;
 import net.minecraft.entity.player.PlayerInventory;
@@ -8,6 +10,7 @@ import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
@@ -55,6 +58,11 @@ public class UPlayerImpl implements UPlayer {
     }
 
     @Override
+    public BlockPos getPosition() {
+        return getPlayer().getPosition();
+    }
+
+    @Override
     public void sendMessage(ITextComponent message) {
         getPlayer().sendMessage(message, getUUID());
     }
@@ -62,6 +70,11 @@ public class UPlayerImpl implements UPlayer {
     @Override
     public void sendMessageAsString(String message) {
         sendMessage(ITextComponent.getTextComponentOrEmpty(message));
+    }
+
+    @Override
+    public void sendChatMessage(String message) {
+        getPlayer().sendChatMessage(message);
     }
 
     @Override
@@ -82,5 +95,11 @@ public class UPlayerImpl implements UPlayer {
     @Override
     public ClientPlayNetHandler getConnection() {
         return getPlayer().connection;
+    }
+
+    @Override
+    public Faction getFaction() {
+        if (FactionHandler.getPlayerFactionMap().containsKey(getName())) return FactionHandler.getPlayerFactionMap().get(getName());
+        return Faction.NULL;
     }
 }

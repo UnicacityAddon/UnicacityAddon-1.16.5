@@ -2,20 +2,23 @@ package com.rettichlp.UnicacityAddon.base.command;
 
 import com.rettichlp.UnicacityAddon.UnicacityAddon;
 import com.rettichlp.UnicacityAddon.base.abstraction.AbstractionLayer;
-import com.rettichlp.UnicacityAddon.base.abstraction.UPlayer;
+import com.rettichlp.UnicacityAddon.base.logger.LoggerAPI;
 import com.rettichlp.UnicacityAddon.base.text.ColorCode;
 import com.rettichlp.UnicacityAddon.base.text.Message;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.events.client.chat.MessageSendEvent;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
-import org.reflections.util.ClasspathHelper;
-import org.reflections.util.ConfigurationBuilder;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static org.reflections.scanners.Scanners.MethodsAnnotated;
 
 /**
  * @author RettichLP
@@ -26,53 +29,54 @@ public class CommandHandler {
     public void onMessage(MessageSendEvent e) {
         String msg = e.getMessage();
         if (!msg.startsWith("/")) return;
+
+        String label = msg.substring(1);
+        List<String> args = new ArrayList<>();
+
+        if (msg.contains(" ")) {
+            label = msg.split(" ")[0].substring(1);
+            args = Arrays.asList(msg.substring(label.length() + 2).split(" "));
+        }
+
+        Map<String, Method> commandMap = getCommandMap();
+        if (!commandMap.containsKey(label)) return;
         e.setCancelled(true);
 
-        String label = msg.split(" ")[0].substring(1);
-        String[] args = msg.substring(label.length() + 2).split(" ");
+        Method method = commandMap.get(label);
+        Class<?> clazz = method.getDeclaringClass();
 
         try {
-            Map<String, Class<?>> commandMap = getCommandMap();
-            if (!commandMap.containsKey(label)) return;
+            Object commandClassInstance = clazz.newInstance();
+            boolean success = (boolean) method.invoke(commandClassInstance, AbstractionLayer.getPlayer(), args);
 
-            Class<?> commandClass = commandMap.get(label);
-            Method commandMethod = commandClass.getDeclaredMethod("onCommand", UPlayer.class, String[].class);
+            if (!success) Message.getBuilder()
+                    .error()
+                    .space()
+                    .of("Syntax: " + method.getAnnotation(Command.class).usage().replace("%label%", label)).color(ColorCode.GRAY).advance()
+                    .sendTo(AbstractionLayer.getPlayer().getPlayer());
 
-            Object commandClassInstance = commandClass.newInstance();
-            boolean success = (boolean) commandMethod.invoke(commandClassInstance, AbstractionLayer.getPlayer(), args);
+            LoggerAPI.command(label, args, success);
 
-            if (!success) {
-                Message.getBuilder()
-                        .error()
-                        .space()
-                        .of(commandMethod.getAnnotation(Command.class).usage().replace("%label%", label)).color(ColorCode.GRAY).advance()
-                        .sendTo(AbstractionLayer.getPlayer().getPlayer());
-                UnicacityAddon.LOGGER.warning("Syntax error in executed command: " + label + " by: "  + AbstractionLayer.getPlayer().getName());
-            } else
-                UnicacityAddon.LOGGER.info("Successfully executed command: " + label + " by: "  + AbstractionLayer.getPlayer().getName());
-
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException ex) {
-            UnicacityAddon.LOGGER.severe("Error in CommandHandler during execution: " + label);
+        } catch (InvocationTargetException ex) {
+            LoggerAPI.error(ex.getCause().getMessage(), clazz);
+            throw new RuntimeException(ex);
+        } catch (InstantiationException | IllegalAccessException ex) {
+            LoggerAPI.error(ex.getCause().getMessage(), this.getClass());
             throw new RuntimeException(ex);
         }
     }
 
-    private Map<String, Class<?>> getCommandMap() {
-        Map<String, Class<?>> commandMap = new HashMap<>();
+    private Map<String, Method> getCommandMap() {
+        Map<String, Method> commandMap = new HashMap<>();
 
-        ConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
-                .setUrls(ClasspathHelper.forPackage("com.rettichlp.UnicacityAddon"))
-                .setScanners(Scanners.MethodsAnnotated);
-
-        Reflections reflections = new Reflections(configurationBuilder);
-
-        reflections.getMethodsAnnotatedWith(Command.class).forEach(method -> {
+        Reflections reflections = new Reflections(UnicacityAddon.class.getPackage().getName(), Scanners.values());
+        reflections.get(MethodsAnnotated.with(Command.class).as(Method.class)).forEach(method -> {
             Command commandAnnotation = method.getAnnotation(Command.class);
+            System.out.println(Arrays.toString(commandAnnotation.value()));
 
             for (int i = 0; i < commandAnnotation.value().length; i++) {
-                commandMap.put(commandAnnotation.value()[i], method.getDeclaringClass());
+                commandMap.put(commandAnnotation.value()[i], method);
             }
-
         });
 
         return commandMap;

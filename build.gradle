@@ -78,6 +78,10 @@ repositories {
     mavenLocal()
 }
 
+configurations {
+    shade
+    compile.extendsFrom(shade)
+}
 
 dependencies {
     annotationProcessor("org.spongepowered:mixin:0.8.2:processor")
@@ -91,12 +95,19 @@ dependencies {
     compile("org.spongepowered:mixin:0.8.2") { transitive = false }
     compile("net.minecraft:launchwrapper:1.12") { transitive = false }
 
+    implementation 'org.jetbrains:annotations:23.0.0'
+
     implementation 'org.reflections:reflections:0.10.2'
+    shade fileTree(dir: 'libs', include: 'reflections-0.10.2.jar')
 }
 
 jar {
-    // Excludes the start file
     exclude("**/launch")
+    configurations.shade.each { dep ->
+        from(project.zipTree(dep)) {
+            exclude 'META-INF', 'META-INF/**'
+        }
+    }
 }
 
 task downloadAPI(type: Download) {
@@ -111,4 +122,3 @@ task downloadAPI(type: Download) {
     src "https://dl.labymod.net/latest/api/files/lm_api_mc1.16.5.jar"
     dest 'libs/'
 }
-
