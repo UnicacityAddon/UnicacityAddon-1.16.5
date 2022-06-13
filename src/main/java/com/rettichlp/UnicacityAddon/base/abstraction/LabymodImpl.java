@@ -1,6 +1,8 @@
 package com.rettichlp.UnicacityAddon.base.abstraction;
 
+import com.google.gson.JsonObject;
 import com.rettichlp.UnicacityAddon.UnicacityAddon;
+import net.labymod.api.LabyModAPI;
 import net.labymod.api.event.EventService;
 import net.labymod.main.LabyMod;
 
@@ -10,13 +12,23 @@ import net.labymod.main.LabyMod;
  */
 public class LabymodImpl implements Labymod {
 
-    @Override
-    public LabyMod getLabymod() {
-        return UnicacityAddon.LABYMOD;
+    @Override public UnicacityAddon getAddon() {
+        return UnicacityAddon.ADDON;
     }
 
-    @Override
-    public EventService getEventService() {
+    @Override public LabyMod getLabymod() {
+        return LabyMod.getInstance();
+    }
+
+    @Override public EventService getEventService() {
         return getLabymod().getEventService();
+    }
+
+    @Override public LabyModAPI getApi() {
+        return getAddon().getApi();
+    }
+
+    @Override public JsonObject getConfig() {
+        return getAddon().getConfig();
     }
 }

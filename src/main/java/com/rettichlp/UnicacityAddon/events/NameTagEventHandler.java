@@ -1,6 +1,5 @@
 package com.rettichlp.UnicacityAddon.events;
 
-import com.rettichlp.UnicacityAddon.UnicacityAddon;
 import com.rettichlp.UnicacityAddon.base.abstraction.AbstractionLayer;
 import com.rettichlp.UnicacityAddon.base.config.ConfigElements;
 import com.rettichlp.UnicacityAddon.base.event.UCEvent;
@@ -38,7 +37,7 @@ public class NameTagEventHandler {
     @Subscribe
     public void onTick(TickEvent e) {
         if (e.getPhase() != TickEvent.Phase.PRE) return;
-        if (UnicacityAddon.MINECRAFT.world == null) return;
+        if (AbstractionLayer.getPlayer().getWorld() == null) return;
         if (tick++ != 20) return;
 
         getCorpsesInRange(30).forEach(itemEntity -> {
@@ -118,7 +117,7 @@ public class NameTagEventHandler {
 
     private List<ItemEntity> getCorpsesInRange(int range) {
         BlockPos pos = AbstractionLayer.getPlayer().getPosition();
-        return UnicacityAddon.MINECRAFT.world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(
+        return AbstractionLayer.getPlayer().getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(
                 pos.getX() - range,
                 pos.getY() - range,
                 pos.getZ() - range,

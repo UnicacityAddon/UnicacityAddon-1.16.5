@@ -1,5 +1,8 @@
 package com.rettichlp.UnicacityAddon.base.abstraction;
 
+import com.google.gson.JsonObject;
+import com.rettichlp.UnicacityAddon.UnicacityAddon;
+import net.labymod.api.LabyModAPI;
 import net.labymod.api.event.EventService;
 import net.labymod.main.LabyMod;
 
@@ -9,7 +12,13 @@ import net.labymod.main.LabyMod;
  */
 public interface Labymod {
 
+    UnicacityAddon getAddon();
+
     LabyMod getLabymod();
 
     EventService getEventService();
+
+    LabyModAPI getApi();
+
+    JsonObject getConfig();
 }
