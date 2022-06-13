@@ -44,27 +44,27 @@ public class ConfigSettings {
                 .of("Einstellungen").color(ColorCode.WHITE).advance()
                 .create()));
 
-        BooleanElement nametagFactionSuffix = new BooleanElement("Fraktionsinfo", unicacityAddon, new ControlElement.IconData(Material.NAME_TAG), "NAMETAG_FACTIONSUFFIX",
-                ConfigElements.getNametagFactionSuffix());
-        list.add(nametagFactionSuffix);
+        BooleanElement nameTagFactionSuffix = new BooleanElement("Fraktionsinfo", unicacityAddon, new ControlElement.IconData(Material.NAME_TAG), "NAMETAG_FACTIONSUFFIX",
+                ConfigElements.getNameTagFactionSuffix());
+        list.add(nameTagFactionSuffix);
 
         BooleanElement nameTagFaction = new BooleanElement("Fraktion", unicacityAddon, new ControlElement.IconData(Material.BLUE_DYE), "NAMETAG_FACTION",
-                ConfigElements.getNametagFaction());
+                ConfigElements.getNameTagFaction());
         nameTagFaction.setSubSettings(nameTagFactionSettings());
         list.add(nameTagFaction);
 
         BooleanElement nameTagAlliance = new BooleanElement("Bündnis", unicacityAddon, new ControlElement.IconData(Material.PURPLE_DYE), "NAMETAG_ALLIANCE",
-                ConfigElements.getNametagAlliance());
+                ConfigElements.getNameTagAlliance());
         nameTagAlliance.setSubSettings(nameTagAllianceSettings());
         list.add(nameTagAlliance);
 
         BooleanElement nameTagStreetwar = new BooleanElement("Streetwar", unicacityAddon, new ControlElement.IconData(Material.DIAMOND_HORSE_ARMOR), "NAMETAG_STREETWAR",
-                ConfigElements.getNametagStreetwar());
+                ConfigElements.getNameTagStreetwar());
         nameTagStreetwar.setSubSettings(nameTagStreetwarSettings());
         list.add(nameTagStreetwar);
 
         BooleanElement nameTagForHouseBan = new BooleanElement("Hausverbot", unicacityAddon, new ControlElement.IconData(Material.SPAWNER), "NAMETAG_HOUSEBAN",
-                ConfigElements.getNametagHouseban());
+                ConfigElements.getNameTagHouseban());
         list.add(nameTagForHouseBan);
     }
 
@@ -72,25 +72,25 @@ public class ConfigSettings {
         Settings settings = new Settings();
 
         DropDownMenu<ColorCode> dropDownMenu0 = new DropDownMenu<ColorCode>("Farbe", 0, 0, 0, 0).fill(ColorCode.values());
-        dropDownMenu0.setSelected(ConfigElements.getNametagAllianceColor());
+        dropDownMenu0.setSelected(ConfigElements.getNameTagAllianceColor());
         dropDownMenu0.setEntryDrawer((object, matrixStack, x, y, string) -> LabyMod.getInstance().getDrawUtils()
                 .drawString(matrixStack, ColorCode.valueOf(object.toString().toUpperCase()).toString(), x, y));
         DropDownElement<ColorCode> dropDownElement0 = new DropDownElement<>("", dropDownMenu0);
-        dropDownElement0.setChangeListener(ConfigElements::setNametagAllianceColor);
+        dropDownElement0.setChangeListener(ConfigElements::setNameTagAllianceColor);
 
         DropDownMenu<Faction> dropDownMenu1 = new DropDownMenu<Faction>("Bündnisfraktion 1", 0, 0, 0, 0).fill(Faction.values());
-        dropDownMenu1.setSelected(ConfigElements.getNametagAlliance1());
+        dropDownMenu1.setSelected(ConfigElements.getNameTagAlliance1());
         dropDownMenu1.setEntryDrawer((object, matrixStack, x, y, string) -> LabyMod.getInstance().getDrawUtils()
                 .drawString(matrixStack, Faction.valueOf(object.toString().toUpperCase()).getDisplayName(), x, y));
         DropDownElement<Faction> dropDownElement1 = new DropDownElement<>("", dropDownMenu1);
-        dropDownElement1.setChangeListener(ConfigElements::setNametagAlliance1);
+        dropDownElement1.setChangeListener(ConfigElements::setNameTagAlliance1);
 
         DropDownMenu<Faction> dropDownMenu2 = new DropDownMenu<Faction>("Bündnisfraktion 2 (optional)", 0, 0, 0, 0).fill(Faction.values());
-        dropDownMenu2.setSelected(ConfigElements.getNametagAlliance2());
+        dropDownMenu2.setSelected(ConfigElements.getNameTagAlliance2());
         dropDownMenu2.setEntryDrawer((object, matrixStack, x, y, string) -> LabyMod.getInstance().getDrawUtils()
                 .drawString(matrixStack, Faction.valueOf(object.toString().toUpperCase()).getDisplayName(), x, y));
         DropDownElement<Faction> dropDownElement2 = new DropDownElement<>("", dropDownMenu2);
-        dropDownElement2.setChangeListener(ConfigElements::setNametagAlliance2);
+        dropDownElement2.setChangeListener(ConfigElements::setNameTagAlliance2);
 
         settings.add(dropDownElement0);
         settings.add(dropDownElement1);
@@ -102,11 +102,11 @@ public class ConfigSettings {
         Settings settings = new Settings();
 
         DropDownMenu<ColorCode> dropDownMenu0 = new DropDownMenu<ColorCode>("Farbe", 0, 0, 0, 0).fill(ColorCode.values());
-        dropDownMenu0.setSelected(ConfigElements.getNametagFactionColor());
+        dropDownMenu0.setSelected(ConfigElements.getNameTagFactionColor());
         dropDownMenu0.setEntryDrawer((object, matrixStack, x, y, string) -> LabyMod.getInstance().getDrawUtils()
                 .drawString(matrixStack, ColorCode.valueOf(object.toString().toUpperCase()).toString(), x, y));
         DropDownElement<ColorCode> dropDownElement0 = new DropDownElement<>("", dropDownMenu0);
-        dropDownElement0.setChangeListener(ConfigElements::setNametagFactionColor);
+        dropDownElement0.setChangeListener(ConfigElements::setNameTagFactionColor);
 
         settings.add(dropDownElement0);
         return settings;
@@ -116,25 +116,25 @@ public class ConfigSettings {
         Settings settings = new Settings();
 
         DropDownMenu<ColorCode> dropDownMenu0 = new DropDownMenu<ColorCode>("Farbe", 0, 0, 0, 0).fill(ColorCode.values());
-        dropDownMenu0.setSelected(ConfigElements.getNametagStreetwarColor());
+        dropDownMenu0.setSelected(ConfigElements.getNameTagStreetwarColor());
         dropDownMenu0.setEntryDrawer((object, matrixStack, x, y, string) -> LabyMod.getInstance().getDrawUtils()
                 .drawString(matrixStack, ColorCode.valueOf(object.toString().toUpperCase()).toString(), x, y));
         DropDownElement<ColorCode> dropDownElement0 = new DropDownElement<>("", dropDownMenu0);
-        dropDownElement0.setChangeListener(ConfigElements::setNametagStreetwarColor);
+        dropDownElement0.setChangeListener(ConfigElements::setNameTagStreetwarColor);
 
         DropDownMenu<Faction> dropDownMenu1 = new DropDownMenu<Faction>("Streetwarfraktion 1", 0, 0, 0, 0).fill(Faction.values());
-        dropDownMenu1.setSelected(ConfigElements.getNametagStreetwar1());
+        dropDownMenu1.setSelected(ConfigElements.getNameTagStreetwar1());
         dropDownMenu1.setEntryDrawer((object, matrixStack, x, y, string) -> LabyMod.getInstance().getDrawUtils()
                 .drawString(matrixStack, Faction.valueOf(object.toString().toUpperCase()).getDisplayName(), x, y));
         DropDownElement<Faction> dropDownElement1 = new DropDownElement<>("", dropDownMenu1);
-        dropDownElement1.setChangeListener(ConfigElements::setNametagStreetwar1);
+        dropDownElement1.setChangeListener(ConfigElements::setNameTagStreetwar1);
 
         DropDownMenu<Faction> dropDownMenu2 = new DropDownMenu<Faction>("Streetwarfraktion 2 (optional)", 0, 0, 0, 0).fill(Faction.values());
-        dropDownMenu2.setSelected(ConfigElements.getNametagStreetwar2());
+        dropDownMenu2.setSelected(ConfigElements.getNameTagStreetwar2());
         dropDownMenu2.setEntryDrawer((object, matrixStack, x, y, string) -> LabyMod.getInstance().getDrawUtils()
                 .drawString(matrixStack, Faction.valueOf(object.toString().toUpperCase()).getDisplayName(), x, y));
         DropDownElement<Faction> dropDownElement2 = new DropDownElement<>("", dropDownMenu2);
-        dropDownElement2.setChangeListener(ConfigElements::setNametagStreetwar2);
+        dropDownElement2.setChangeListener(ConfigElements::setNameTagStreetwar2);
 
         settings.add(dropDownElement0);
         settings.add(dropDownElement1);

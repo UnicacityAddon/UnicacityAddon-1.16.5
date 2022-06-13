@@ -27,9 +27,10 @@ public class NameTagEventHandler {
     @Subscribe
     public void onRenderNameTag(RenderNameTagEvent e) {
         String playerName = e.getDisplayName().getString();
+        String houseban = getHouseban(playerName);
         String prefix = getPrefix(playerName);
         String suffix = getSuffix(playerName);
-        e.setDisplayName(ITextComponent.getTextComponentOrEmpty(prefix + playerName + suffix));
+        e.setDisplayName(ITextComponent.getTextComponentOrEmpty(houseban + prefix + playerName + suffix));
     }
 
     @Subscribe
@@ -38,34 +39,33 @@ public class NameTagEventHandler {
         if (UnicacityAddon.MINECRAFT.world == null) return;
         if (tick++ != 20) return;
 
-        BlockPos pos = AbstractionLayer.getPlayer().getPosition();
-        List<ItemEntity> itemEntities = UnicacityAddon.MINECRAFT.world.getEntitiesWithinAABB(ItemEntity.class,
-                new AxisAlignedBB(pos.getX() - 30, pos.getY() - 30, pos.getZ() - 30, pos.getX() + 30, pos.getY() + 30, pos.getZ() + 30),
-                itemEntity -> itemEntity != null && itemEntity.hasCustomName() && itemEntity.getItem().getItem().equals(Items.SKELETON_SKULL));
-
-        for (ItemEntity itemEntity : itemEntities) {
+        getCorpsesInRange(30).forEach(itemEntity -> {
             String name = itemEntity.getCustomName().getString();
             String playerName = name.substring(3);
+
+            if (!FactionHandler.getPlayerFactionMap().containsKey(name.substring(3))) return;
+            if (name.contains("◤")) return; // already edited
 
             String prefix = getPrefix(playerName);
             String suffix = getSuffix(playerName);
 
             if (name.startsWith(ColorCode.DARK_GRAY.getCode())) { // non-revivable
                 itemEntity.setCustomName(ITextComponent.getTextComponentOrEmpty(ColorCode.DARK_GRAY.getCode() + "✟" + playerName + suffix));
-                continue;
+                return;
             }
 
-            itemEntity.setCustomName(ITextComponent.getTextComponentOrEmpty(prefix + "✟" + playerName + suffix));
-        }
+            itemEntity.setCustomName(ITextComponent.getTextComponentOrEmpty(ColorCode.GRAY.getCode() + prefix + "✟" + playerName + suffix));
+        });
 
         tick = 0;
     }
 
-    private @NotNull String getPrefix(String playerName) {
-        StringBuilder prefix = new StringBuilder();
+    private @NotNull String getHouseban(String playerName) {
+        StringBuilder houseban = new StringBuilder();
+        houseban.append(FormattingCode.RESET.getCode());
 
-        if (ConfigElements.getNametagHouseban()) {
-            if (FactionHandler.checkPlayerHouseBan(playerName)) prefix.append(Message.getBuilder()
+        if (ConfigElements.getNameTagHouseban()) {
+            if (FactionHandler.checkPlayerHouseBan(playerName)) houseban.append(Message.getBuilder()
                     .of("[").color(ColorCode.DARK_GRAY).advance()
                     .of("HV").color(ColorCode.RED).advance()
                     .of("]").color(ColorCode.DARK_GRAY).advance()
@@ -73,22 +73,29 @@ public class NameTagEventHandler {
                     .create());
         }
 
+        return houseban.toString();
+    }
+
+    private @NotNull String getPrefix(String playerName) {
+        StringBuilder prefix = new StringBuilder();
+        prefix.append(FormattingCode.RESET.getCode());
+
         if (FactionHandler.getPlayerFactionMap().containsKey(playerName)) {
             Faction targetPlayerFaction = FactionHandler.getPlayerFactionMap().get(playerName);
 
-            if (ConfigElements.getNametagFaction()) {
+            if (ConfigElements.getNameTagFaction()) {
                 if (targetPlayerFaction.equals(AbstractionLayer.getPlayer().getFaction()))
-                    prefix.append(ConfigElements.getNametagFactionColor().getCode());
+                    prefix.append(ConfigElements.getNameTagFactionColor().getCode());
             }
 
-            if (ConfigElements.getNametagAlliance()) {
-                if (targetPlayerFaction.equals(ConfigElements.getNametagAlliance1()) || targetPlayerFaction.equals(ConfigElements.getNametagAlliance2()))
-                    prefix.append(ConfigElements.getNametagAllianceColor().getCode());
+            if (ConfigElements.getNameTagAlliance()) {
+                if (targetPlayerFaction.equals(ConfigElements.getNameTagAlliance1()) || targetPlayerFaction.equals(ConfigElements.getNameTagAlliance2()))
+                    prefix.append(ConfigElements.getNameTagAllianceColor().getCode());
             }
 
-            if (ConfigElements.getNametagStreetwar()) {
-                if (targetPlayerFaction.equals(ConfigElements.getNametagStreetwar1()) || targetPlayerFaction.equals(ConfigElements.getNametagStreetwar2()))
-                    prefix.append(ConfigElements.getNametagStreetwarColor().getCode());
+            if (ConfigElements.getNameTagStreetwar()) {
+                if (targetPlayerFaction.equals(ConfigElements.getNameTagStreetwar1()) || targetPlayerFaction.equals(ConfigElements.getNameTagStreetwar2()))
+                    prefix.append(ConfigElements.getNameTagStreetwarColor().getCode());
             }
         }
 
@@ -97,12 +104,25 @@ public class NameTagEventHandler {
 
     private @NotNull String getSuffix(String playerName) {
         StringBuilder suffix = new StringBuilder();
+        suffix.append(FormattingCode.RESET.getCode());
 
         if (FactionHandler.getPlayerFactionMap().containsKey(playerName)) {
             Faction targetPlayerFaction = FactionHandler.getPlayerFactionMap().get(playerName);
-            if (ConfigElements.getNametagFactionSuffix()) suffix.append(" ").append(targetPlayerFaction.getNameTagSuffix());
+            if (ConfigElements.getNameTagFactionSuffix()) suffix.append(" ").append(targetPlayerFaction.getNameTagSuffix());
         }
 
-        return suffix.append(FormattingCode.RESET.getCode()).toString();
+        return suffix.toString();
+    }
+
+    private List<ItemEntity> getCorpsesInRange(int range) {
+        BlockPos pos = AbstractionLayer.getPlayer().getPosition();
+        return UnicacityAddon.MINECRAFT.world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(
+                pos.getX() - range,
+                pos.getY() - range,
+                pos.getZ() - range,
+                pos.getX() + range,
+                pos.getY() + range,
+                pos.getZ() + range),
+                itemEntity -> itemEntity != null && itemEntity.hasCustomName() && itemEntity.getItem().getItem().equals(Items.SKELETON_SKULL));
     }
 }
