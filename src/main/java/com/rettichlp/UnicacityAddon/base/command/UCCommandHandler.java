@@ -2,6 +2,7 @@ package com.rettichlp.UnicacityAddon.base.command;
 
 import com.rettichlp.UnicacityAddon.UnicacityAddon;
 import com.rettichlp.UnicacityAddon.base.abstraction.AbstractionLayer;
+import com.rettichlp.UnicacityAddon.base.event.UCEvent;
 import com.rettichlp.UnicacityAddon.base.logger.LoggerAPI;
 import com.rettichlp.UnicacityAddon.base.text.ColorCode;
 import com.rettichlp.UnicacityAddon.base.text.Message;
@@ -23,10 +24,11 @@ import static org.reflections.scanners.Scanners.MethodsAnnotated;
 /**
  * @author RettichLP
  */
-public class CommandHandler {
+@UCEvent
+public class UCCommandHandler {
 
     @Subscribe
-    public void onMessage(MessageSendEvent e) {
+    public void onMessageSend(MessageSendEvent e) {
         String msg = e.getMessage();
         if (!msg.startsWith("/")) return;
 
@@ -52,7 +54,7 @@ public class CommandHandler {
             if (!success) Message.getBuilder()
                     .error()
                     .space()
-                    .of("Syntax: " + method.getAnnotation(Command.class).usage().replace("%label%", label)).color(ColorCode.GRAY).advance()
+                    .of("Syntax: " + method.getAnnotation(UCCommand.class).usage().replace("%label%", label)).color(ColorCode.GRAY).advance()
                     .sendTo(AbstractionLayer.getPlayer().getPlayer());
 
             LoggerAPI.command(label, args, success);
@@ -70,12 +72,12 @@ public class CommandHandler {
         Map<String, Method> commandMap = new HashMap<>();
 
         Reflections reflections = new Reflections(UnicacityAddon.class.getPackage().getName(), Scanners.values());
-        reflections.get(MethodsAnnotated.with(Command.class).as(Method.class)).forEach(method -> {
-            Command commandAnnotation = method.getAnnotation(Command.class);
-            System.out.println(Arrays.toString(commandAnnotation.value()));
+        reflections.get(MethodsAnnotated.with(UCCommand.class).as(Method.class)).forEach(method -> {
+            UCCommand ucCommand = method.getAnnotation(UCCommand.class);
+            System.out.println(Arrays.toString(ucCommand.value()));
 
-            for (int i = 0; i < commandAnnotation.value().length; i++) {
-                commandMap.put(commandAnnotation.value()[i], method);
+            for (int i = 0; i < ucCommand.value().length; i++) {
+                commandMap.put(ucCommand.value()[i], method);
             }
         });
 
