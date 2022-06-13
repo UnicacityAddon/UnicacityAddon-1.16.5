@@ -73,6 +73,11 @@ public class UPlayerImpl implements UPlayer {
     }
 
     @Override
+    public void sendChatMessage(String message) {
+        getPlayer().sendChatMessage(message);
+    }
+
+    @Override
     public void playSound(SoundEvent soundEvent, Float volume, Float pitch) {
         getPlayer().playSound(soundEvent, volume, pitch);
     }

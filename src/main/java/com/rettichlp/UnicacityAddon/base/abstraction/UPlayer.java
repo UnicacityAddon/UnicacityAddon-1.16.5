@@ -40,6 +40,8 @@ public interface UPlayer {
 
     void sendMessageAsString(String message);
 
+    void sendChatMessage(String message);
+
     void playSound(SoundEvent soundEvent, Float volume, Float pitch);
 
     PlayerInventory getInventory();

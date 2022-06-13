@@ -4,22 +4,16 @@ import com.rettichlp.UnicacityAddon.UnicacityAddon;
 import com.rettichlp.UnicacityAddon.base.faction.Faction;
 import com.rettichlp.UnicacityAddon.base.text.ColorCode;
 import com.rettichlp.UnicacityAddon.base.text.Message;
-import net.labymod.gui.elements.ColorPicker;
 import net.labymod.gui.elements.DropDownMenu;
 import net.labymod.main.LabyMod;
 import net.labymod.settings.Settings;
 import net.labymod.settings.elements.BooleanElement;
-import net.labymod.settings.elements.ColorPickerCheckBoxBulkElement;
 import net.labymod.settings.elements.ControlElement;
 import net.labymod.settings.elements.DropDownElement;
 import net.labymod.settings.elements.HeaderElement;
 import net.labymod.settings.elements.SettingsElement;
-import net.labymod.utils.Consumer;
 import net.labymod.utils.Material;
-import net.labymod.utils.ModColor;
-import net.minecraft.world.BossInfo;
 
-import java.awt.*;
 import java.util.List;
 
 public class ConfigSettings {

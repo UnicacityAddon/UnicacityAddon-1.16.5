@@ -12,7 +12,6 @@ import net.labymod.settings.elements.SettingsElement;
 import net.minecraft.client.Minecraft;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * @author RettichLP
@@ -20,7 +19,7 @@ import java.util.logging.Logger;
 public class UnicacityAddon extends LabyModAddon {
 
     public static final String VERSION = "1.0.0";
-    public static Logger LOGGER = Logger.getLogger("UnicacityAddon");
+    // public static Logger LOGGER = Logger.getLogger("UnicacityAddon");
     public static JsonObject CONFIG;
     public static final LabyMod LABYMOD = LabyMod.getInstance();
     public static final Minecraft MINECRAFT = Minecraft.getInstance();
