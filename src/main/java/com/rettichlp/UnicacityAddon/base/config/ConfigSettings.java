@@ -60,14 +60,6 @@ public class ConfigSettings {
         BooleanElement nameTagForHouseBan = new BooleanElement("Hausverbot", unicacityAddon, new ControlElement.IconData(Material.SPAWNER), "NAMETAG_HOUSEBAN",
                 ConfigElements.getNameTagHouseban());
         list.add(nameTagForHouseBan);
-
-        list.add(new HeaderElement(Message.getBuilder()
-                .of("").color(ColorCode.WHITE).advance()
-                .create()));
-
-        BooleanElement eventATMInfo = new BooleanElement("ATM Info", unicacityAddon, new ControlElement.IconData(Material.SEA_LANTERN), "EVENT_ATMINFO",
-                ConfigElements.getEventATMInfo());
-        list.add(eventATMInfo);
     }
 
     private static Settings nameTagAllianceSettings() {

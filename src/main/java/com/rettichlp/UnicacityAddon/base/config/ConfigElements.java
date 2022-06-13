@@ -87,9 +87,4 @@ public class ConfigElements {
     public static void setNameTagStreetwar2(@NotNull Faction streetwarFaction2) {
         UnicacityAddon.CONFIG.addProperty("NAMETAG_STREETWAR2", streetwarFaction2.toString());
     }
-
-    // ATMINFO
-    public static boolean getEventATMInfo() {
-        return !UnicacityAddon.CONFIG.has("EVENT_ATMINFO") || UnicacityAddon.CONFIG.get("EVENT_ATMINFO").getAsBoolean(); // default = true
-    }
 }
