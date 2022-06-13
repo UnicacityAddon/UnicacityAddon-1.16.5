@@ -11,6 +11,7 @@ buildscript {
     dependencies {
         classpath group: 'com.github.ImpactDevelopment', name: 'ForgeGradle', version: '3.0.115'
         classpath group: 'com.github.ImpactDevelopment', name: 'MixinGradle', version: '0.6.2'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
     }
 }
 
@@ -22,6 +23,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 version = '1.0.0'
 group = 'com.rettichlp.UnicacityAddon' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -78,16 +80,12 @@ repositories {
     mavenLocal()
 }
 
-configurations {
-    shade
-    compile.extendsFrom(shade)
-}
-
 dependencies {
     annotationProcessor("org.spongepowered:mixin:0.8.2:processor")
 
     minecraft 'com.github.ImpactDevelopment:Vanilla:1.16.5'
     compile(files('libs/lm_api_mc1.16.5.jar'))
+    compile(files('libs/reflections-0.10.2.jar'))
 
     compile('org.ow2.asm:asm-analysis:9.3') { transitive = false }
     compile('org.ow2.asm:asm-util:9.3') { transitive = false }
@@ -96,18 +94,10 @@ dependencies {
     compile("net.minecraft:launchwrapper:1.12") { transitive = false }
 
     implementation 'org.jetbrains:annotations:23.0.0'
-
-    implementation 'org.reflections:reflections:0.10.2'
-    shade fileTree(dir: 'libs', include: 'reflections-0.10.2.jar')
 }
 
 jar {
     exclude("**/launch")
-    configurations.shade.each { dep ->
-        from(project.zipTree(dep)) {
-            exclude 'META-INF', 'META-INF/**'
-        }
-    }
 }
 
 task downloadAPI(type: Download) {
@@ -120,5 +110,8 @@ task downloadAPI(type: Download) {
     }
 
     src "https://dl.labymod.net/latest/api/files/lm_api_mc1.16.5.jar"
+    dest 'libs/'
+
+    src "https://github.com/ronmamo/reflections/releases/download/0.10.2/reflections-0.10.2.jar"
     dest 'libs/'
 }
