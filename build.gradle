@@ -120,4 +120,3 @@ task downloadAPI(type: Download) {
     src "https://dl.labymod.net/latest/api/files/lm_api_mc1.16.5.jar"
     dest 'libs/'
 }
-
