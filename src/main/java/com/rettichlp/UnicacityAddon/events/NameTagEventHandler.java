@@ -3,6 +3,7 @@ package com.rettichlp.UnicacityAddon.events;
 import com.rettichlp.UnicacityAddon.UnicacityAddon;
 import com.rettichlp.UnicacityAddon.base.abstraction.AbstractionLayer;
 import com.rettichlp.UnicacityAddon.base.config.ConfigElements;
+import com.rettichlp.UnicacityAddon.base.event.UCEvent;
 import com.rettichlp.UnicacityAddon.base.faction.Faction;
 import com.rettichlp.UnicacityAddon.base.faction.FactionHandler;
 import com.rettichlp.UnicacityAddon.base.text.ColorCode;
@@ -20,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+@UCEvent
 public class NameTagEventHandler {
 
     private static int tick;
