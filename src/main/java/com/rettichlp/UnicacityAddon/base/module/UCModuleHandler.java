@@ -2,8 +2,6 @@ package com.rettichlp.UnicacityAddon.base.module;
 
 import com.rettichlp.UnicacityAddon.UnicacityAddon;
 import com.rettichlp.UnicacityAddon.base.abstraction.AbstractionLayer;
-import com.rettichlp.UnicacityAddon.base.event.UCEvent;
-import com.rettichlp.UnicacityAddon.base.logger.LoggerAPI;
 import net.labymod.ingamegui.Module;
 import net.labymod.ingamegui.ModuleCategory;
 import net.labymod.settings.elements.ControlElement;
@@ -30,7 +28,6 @@ public class UCModuleHandler {
             try {
                 AbstractionLayer.getLabymod().getApi().registerModule((Module) clazz.newInstance());
             } catch (InstantiationException | IllegalAccessException e) {
-                LoggerAPI.error(e.getCause().getMessage(), UCModuleHandler.class);
                 throw new RuntimeException(e);
             }
         });

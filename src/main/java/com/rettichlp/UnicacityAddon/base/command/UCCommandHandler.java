@@ -3,7 +3,6 @@ package com.rettichlp.UnicacityAddon.base.command;
 import com.rettichlp.UnicacityAddon.UnicacityAddon;
 import com.rettichlp.UnicacityAddon.base.abstraction.AbstractionLayer;
 import com.rettichlp.UnicacityAddon.base.event.UCEvent;
-import com.rettichlp.UnicacityAddon.base.logger.LoggerAPI;
 import com.rettichlp.UnicacityAddon.base.text.ColorCode;
 import com.rettichlp.UnicacityAddon.base.text.Message;
 import net.labymod.api.event.Subscribe;
@@ -57,13 +56,10 @@ public class UCCommandHandler {
                     .of("Syntax: " + method.getAnnotation(UCCommand.class).usage().replace("%label%", label)).color(ColorCode.GRAY).advance()
                     .sendTo(AbstractionLayer.getPlayer().getPlayer());
 
-            LoggerAPI.command(label, args, success);
-
         } catch (InvocationTargetException ex) {
-            LoggerAPI.error(ex.getCause().getMessage(), clazz);
+            ex.getCause().printStackTrace();
             throw new RuntimeException(ex);
         } catch (InstantiationException | IllegalAccessException ex) {
-            LoggerAPI.error(ex.getCause().getMessage(), this.getClass());
             throw new RuntimeException(ex);
         }
     }
