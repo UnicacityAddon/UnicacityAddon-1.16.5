@@ -1,18 +1,10 @@
 package com.rettichlp.UnicacityAddon.base.abstraction;
 
+import com.google.gson.JsonObject;
+import com.rettichlp.UnicacityAddon.UnicacityAddon;
+import net.labymod.api.LabyModAPI;
 import net.labymod.api.event.EventService;
 import net.labymod.main.LabyMod;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.client.network.play.ClientPlayNetHandler;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.PlayerContainer;
-import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
-
-import java.util.UUID;
 
 /**
  * @author RettichLP
@@ -20,7 +12,13 @@ import java.util.UUID;
  */
 public interface Labymod {
 
+    UnicacityAddon getAddon();
+
     LabyMod getLabymod();
 
     EventService getEventService();
+
+    LabyModAPI getApi();
+
+    JsonObject getConfig();
 }

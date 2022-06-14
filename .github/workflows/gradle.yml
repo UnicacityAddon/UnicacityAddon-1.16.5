@@ -3,12 +3,10 @@ name: Gradle build
 on:
   push:
     branches:
-    - master
     - main
     - develop
   pull_request:
     branches:
-    - master
     - main
     - develop
 
@@ -27,8 +25,3 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew downloadAPI build
-    - name: Upload jar
-      uses: actions/upload-artifact@v1
-      with:
-        name: Artifacts
-        path: build/libs/
