@@ -25,7 +25,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'com.github.johnrengelman.shadow'
 
-version = '1.0.0'
+version = '1.0.0-beta.2'
 group = 'com.rettichlp.UnicacityAddon' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'UnicacityAddon'
 
@@ -94,7 +94,6 @@ dependencies {
     compile("net.minecraft:launchwrapper:1.12") { transitive = false }
 
     implementation 'org.jetbrains:annotations:23.0.0'
-    implementation 'org.reflections:reflections:0.10.2'
 }
 
 jar {
@@ -112,7 +111,4 @@ task downloadAPI(type: Download) {
 
     src "https://dl.labymod.net/latest/api/files/lm_api_mc1.16.5.jar"
     dest 'libs/'
-
-    // src "https://github.com/ronmamo/reflections/releases/download/0.10.2/reflections-0.10.2.jar"
-    // dest 'libs/'
 }
