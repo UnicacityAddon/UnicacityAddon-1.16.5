@@ -24,5 +24,6 @@ public class PatternHandler {
     /**
      * {@link com.rettichlp.UnicacityAddon.modules.CarOpenModule}
      */
-    public static final Pattern CAR_INFO_PATTERN = Pattern.compile("^\\[Car] Du hast deinen .+ (?:auf|ab)geschlossen\\.$");
+    public static final Pattern CAR_OPEN_PATTERN = Pattern.compile("^\\[Car] Du hast deinen .+ aufgeschlossen\\.$");
+    public static final Pattern CAR_CLOSE_PATTERN = Pattern.compile("^\\[Car] Du hast deinen .+ abgeschlossen\\.$");
 }
