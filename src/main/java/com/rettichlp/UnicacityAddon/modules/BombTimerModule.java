@@ -1,6 +1,5 @@
 package com.rettichlp.UnicacityAddon.modules;
 
-import com.rettichlp.UnicacityAddon.base.abstraction.AbstractionLayer;
 import com.rettichlp.UnicacityAddon.base.module.UCModule;
 import com.rettichlp.UnicacityAddon.base.module.UCModuleHandler;
 import net.labymod.ingamegui.ModuleCategory;
@@ -15,10 +14,6 @@ public class BombTimerModule extends SimpleModule {
     public static int currentTick = 0;
     public static boolean isBomb = false;
     public static String timer = "";
-
-    public BombTimerModule() {
-        AbstractionLayer.getLabymod().getEventService().registerListener(this);
-    }
 
     @Override public String getControlName() {
         return "Bomben-Timer";

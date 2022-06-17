@@ -21,6 +21,8 @@ public class BombTimerEventHandler {
 
         if (BombTimerModule.currentCount++ >= 780) BombTimerModule.timer = ColorCode.RED.getCode() + ModUtils.parseTimer(BombTimerModule.currentCount);
         else BombTimerModule.timer = ModUtils.parseTimer(BombTimerModule.currentCount);
+
+        if (BombTimerModule.currentCount > 1200) stopBombTimer();
     }
 
     @Subscribe
@@ -33,10 +35,12 @@ public class BombTimerEventHandler {
             return;
         }
 
-        if (PatternHandler.BOMB_REMOVED_PATTERN.matcher(msg).find()) {
-            BombTimerModule.isBomb = false;
-            BombTimerModule.currentCount = 0;
-            BombTimerModule.timer = "";
-        }
+        if (PatternHandler.BOMB_REMOVED_PATTERN.matcher(msg).find()) stopBombTimer();
+    }
+
+    private void stopBombTimer() {
+        BombTimerModule.isBomb = false;
+        BombTimerModule.currentCount = 0;
+        BombTimerModule.timer = "";
     }
 }
