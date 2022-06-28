@@ -7,8 +7,10 @@ import com.rettichlp.UnicacityAddon.base.faction.FactionHandler;
 import com.rettichlp.UnicacityAddon.base.module.UCModuleHandler;
 import com.rettichlp.UnicacityAddon.events.ATMInfoEventHandler;
 import com.rettichlp.UnicacityAddon.events.BombTimerEventHandler;
+import com.rettichlp.UnicacityAddon.events.CarOpenEventHandler;
 import com.rettichlp.UnicacityAddon.events.NameTagEventHandler;
 import com.rettichlp.UnicacityAddon.modules.BombTimerModule;
+import com.rettichlp.UnicacityAddon.modules.CarOpenModule;
 import net.labymod.api.LabyModAddon;
 import net.labymod.ingamegui.ModuleCategoryRegistry;
 import net.labymod.settings.elements.SettingsElement;
@@ -31,11 +33,13 @@ public class UnicacityAddon extends LabyModAddon {
         AbstractionLayer.getLabymod().getEventService().registerListener(new UCCommandHandler());
         AbstractionLayer.getLabymod().getEventService().registerListener(new ATMInfoEventHandler());
         AbstractionLayer.getLabymod().getEventService().registerListener(new BombTimerEventHandler());
+        AbstractionLayer.getLabymod().getEventService().registerListener(new CarOpenEventHandler());
         AbstractionLayer.getLabymod().getEventService().registerListener(new NameTagEventHandler());
 
         //UCModuleHandler.registerModules();
         ModuleCategoryRegistry.loadCategory(UCModuleHandler.UNICACITY);
         AbstractionLayer.getLabymod().getApi().registerModule(new BombTimerModule());
+        AbstractionLayer.getLabymod().getApi().registerModule(new CarOpenModule());
     }
 
     @Override
