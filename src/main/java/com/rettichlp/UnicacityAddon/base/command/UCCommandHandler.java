@@ -63,8 +63,7 @@ public class UCCommandHandler {
     private Map<String, Method> getCommandMap() {
         Map<String, Method> commandMap = new HashMap<>();
 
-        ReflectionUtils reflectionUtils = new ReflectionUtils("com.rettichlp.UnicacityAddon.commands");
-        reflectionUtils.getMethodsAnnotatedWith(UCCommand.class).forEach(method -> {
+        ReflectionUtils.getMethodsAnnotatedWith(UCCommand.class, "com.rettichlp.UnicacityAddon.commands").forEach(method -> {
             UCCommand ucCommand = method.getAnnotation(UCCommand.class);
             for (int i = 0; i < ucCommand.value().length; i++) {
                 commandMap.put(ucCommand.value()[i], method);

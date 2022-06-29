@@ -9,8 +9,7 @@ import com.rettichlp.UnicacityAddon.base.reflection.ReflectionUtils;
 public class UCEventHandler {
 
     public static void registerEvents() {
-        ReflectionUtils reflectionUtils = new ReflectionUtils("com.rettichlp.UnicacityAddon.events");
-        reflectionUtils.getClassesAnnotatedWith(UCEvent.class).forEach(clazz -> {
+        ReflectionUtils.getClassesAnnotatedWith(UCEvent.class, "com.rettichlp.UnicacityAddon.events").forEach(clazz -> {
             try {
                 AbstractionLayer.getLabymod().getEventService().registerListener(clazz.newInstance());
             } catch (InstantiationException | IllegalAccessException e) {

@@ -15,8 +15,7 @@ public class UCModuleHandler {
     public static final ModuleCategory UNICACITY = new ModuleCategory("Unicacity", true, new ControlElement.IconData(Material.DIAMOND));
 
     public static void registerModules() {
-        ReflectionUtils reflectionUtils = new ReflectionUtils("com.rettichlp.UnicacityAddon.modules");
-        reflectionUtils.getClassesAnnotatedWith(UCModule.class).forEach(clazz -> {
+        ReflectionUtils.getClassesAnnotatedWith(UCModule.class, "com.rettichlp.UnicacityAddon.modules").forEach(clazz -> {
             try {
                 AbstractionLayer.getLabymod().getApi().registerModule((Module) clazz.newInstance());
             } catch (InstantiationException | IllegalAccessException e) {
