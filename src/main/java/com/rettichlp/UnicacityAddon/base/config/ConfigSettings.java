@@ -68,6 +68,10 @@ public class ConfigSettings {
         BooleanElement eventATMInfo = new BooleanElement("ATM Info", unicacityAddon, new ControlElement.IconData(Material.SEA_LANTERN), "EVENT_ATMINFO",
                 ConfigElements.getEventATMInfo());
         list.add(eventATMInfo);
+
+        BooleanElement eventTabList = new BooleanElement("Sortierte Tablist", unicacityAddon, new ControlElement.IconData(Material.REPEATING_COMMAND_BLOCK), "EVENT_TABLIST",
+                ConfigElements.getEventTabList());
+        list.add(eventTabList);
     }
 
     private static Settings nameTagAllianceSettings() {

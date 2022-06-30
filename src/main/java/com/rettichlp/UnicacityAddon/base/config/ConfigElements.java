@@ -112,4 +112,10 @@ public class ConfigElements {
         return !AbstractionLayer.getLabymod().getConfig().has("EVENT_ATMINFO") || AbstractionLayer.getLabymod().getConfig().get("EVENT_ATMINFO")
                 .getAsBoolean(); // default = true
     }
+
+    // TABLIST
+    public static boolean getEventTabList() {
+        return !AbstractionLayer.getLabymod().getConfig().has("EVENT_TABLIST") || AbstractionLayer.getLabymod().getConfig().get("EVENT_TABLIST")
+                .getAsBoolean(); // default = true
+    }
 }
