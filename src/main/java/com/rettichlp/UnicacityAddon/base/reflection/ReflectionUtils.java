@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,5 +40,43 @@ public class ReflectionUtils {
             // handle the exception
         }
         return null;
+    }
+
+    public static void setValue(Class<?> clazz, Class<?> type, Object value) {
+        try {
+            Field field = getField(clazz, type);
+            if (field == null) return;
+
+            field.set(null, value);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Field getField(Class<?> clazz, Class<?> type) {
+        for (Field declaredField : clazz.getDeclaredFields()) {
+            if (declaredField.getType().equals(type)) {
+                makeAccessible(declaredField);
+                return declaredField;
+            }
+        }
+
+        if (clazz.getSuperclass() != null) {
+            return getField(clazz.getSuperclass(), type);
+        }
+
+        return null;
+    }
+
+    public static void makeAccessible(Field field) {
+        field.setAccessible(true);
+
+        try {
+            Field modifiersField = Field.class.getDeclaredField("modifiers");
+            modifiersField.setAccessible(true);
+            modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            e.printStackTrace();
+        }
     }
 }
