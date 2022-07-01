@@ -5,6 +5,7 @@ import com.rettichlp.UnicacityAddon.base.config.ConfigElements;
 import com.rettichlp.UnicacityAddon.base.event.UCEvent;
 import com.rettichlp.UnicacityAddon.base.reflection.ReflectionUtils;
 import com.rettichlp.UnicacityAddon.base.text.ColorCode;
+import com.rettichlp.UnicacityAddon.base.text.FormattingCode;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.events.client.gui.screen.overlay.PlayerTabListOverlayEvent;
 import net.labymod.core_implementation.mc116.gui.ModPlayerTabOverlay;
@@ -34,7 +35,7 @@ public class TabListEventHandler implements Comparator<NetworkPlayerInfo> {
             "§6[UC]",
             "§6",
             "§8[§9UC§8]§c",
-            "§8[§6R§8]§r",
+            "§8[§6R§8]",
             "[UC]"
     );
 
@@ -74,9 +75,10 @@ public class TabListEventHandler implements Comparator<NetworkPlayerInfo> {
                 formattedDisplayName.append(ColorCode.valueOf(color.getName().toUpperCase()).getCode()).append(sibling.getString());
             });
         }
-        formattedDisplayName.append(displayName.getString());
-        System.out.println(formattedDisplayName); // TODO: remove
-        return formattedDisplayName.toString();
+
+        if (formattedDisplayName.toString().isEmpty() || formattedDisplayName.toString().contains("§8[§6R§8]")) formattedDisplayName.append(displayName.getString());
+
+        return formattedDisplayName.toString().replace("[R]", FormattingCode.RESET.getCode());
     }
 
     private String getTablistName(NetworkPlayerInfo networkPlayerInfo) {
