@@ -11,7 +11,6 @@ buildscript {
     dependencies {
         classpath group: 'com.github.ImpactDevelopment', name: 'ForgeGradle', version: '3.0.115'
         classpath group: 'com.github.ImpactDevelopment', name: 'MixinGradle', version: '0.6.2'
-        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
     }
 }
 
@@ -23,7 +22,6 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
-apply plugin: 'com.github.johnrengelman.shadow'
 
 version = '1.0.0-beta.2'
 group = 'com.rettichlp.UnicacityAddon' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -85,7 +83,6 @@ dependencies {
 
     minecraft 'com.github.ImpactDevelopment:Vanilla:1.16.5'
     compile(files('libs/lm_api_mc1.16.5.jar'))
-    // compile(files('libs/reflections-0.10.2.jar'))
 
     compile('org.ow2.asm:asm-analysis:9.3') { transitive = false }
     compile('org.ow2.asm:asm-util:9.3') { transitive = false }
